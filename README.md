@@ -18,6 +18,8 @@ First architecture targeted is the AVR ATmega 328 of the Arduino UNO.
 - Fork and contribute back. That's the spirit of GitHub
 
 # Status
-- The original library is tested (with floats) using Arduino v1.8.5 on Windows on UNO
+- The original library was tested (with floats) using Arduino v1.6.5 on Windows on UNO (and MEGA)
+- TODO: verify examples are working with newer IDE
+- TODO: adapt to Posit on AVR (Arduino UNO)
 - TODO: port to other architectures (should be easy as it is plain C++).
 
