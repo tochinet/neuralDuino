@@ -17,13 +17,10 @@ void neuron::begin(byte num_syn, byte noConnections = FALSE, byte noInputs = FAL
 	delete synWeight;
 	delete prevDelWeight;
 	numSynapse = num_syn;
-	if (num_syn == 0){
-		// since no memory is requested just return
-		return;
-	}
+	if (num_syn == 0) return; // since no memory is requested just return
 	//allocating memory only if requested
-	if (noInputs == FALSE		){	input = new float[num_syn];	   }
-	if (noConnections == FALSE){ inNodes = new neuron*[num_syn]; }
+	if (noInputs == FALSE ) input = new float[num_syn];
+	if (noConnections == FALSE) inNodes = new neuron*[num_syn]; 
 	if (noConnections == FALSE || noInputs == FALSE){
 		synWeight = new float[num_syn];
 		prevDelWeight = new float[num_syn];
@@ -59,16 +56,16 @@ void neuron::setInput(int inputVals[]){
 
 void neuron::setOutput(int value){
 	output = value;
-	inCount = 0;//only to be used for non input nodes like bias
+	inCount = 0; //only to be used for non input nodes like bias
 }
 
 float neuron::getOutput(){
-	//this function is called once on the last layer neuron/neurons
-	//therefore the output for each of these is stored inside these neurons
-	//itself for future adjustment of weights
-	//Serial.print("inCount is  ");
-	//Serial.println(inCount);
-	//Serial.flush();
+	// this function is called once on the last layer neuron/neurons
+	// therefore the output for each of these is stored inside these neurons itself 
+	// for future adjustment of weights
+	// Serial.print("inCount is  ");
+	// Serial.println(inCount);
+	// Serial.flush();
 	float sum = 0;
 	if (inCount != 0){
 		byte temp = inCount;
@@ -79,9 +76,9 @@ float neuron::getOutput(){
 		output = activation(sum, LOW);
 	}	
 
-//		Serial.print((int)this);
-	//	Serial.print("->");
-		//Serial.println(output);
+	// Serial.print((int)this);
+	// Serial.print("->");
+	// Serial.println(output);
 	return  output;
 
 }
@@ -96,7 +93,7 @@ byte neuron::setDesiredOutput(float desiredOutput){
 }
 
 /*
-this function is called on all those nodes that have an input node
+this function is called on all nodes that have an input node
 */
 void neuron::backpropagate(){
 	float myDelta = beta * activation(output, HIGH);
@@ -152,11 +149,9 @@ void neuron::printWeights(){
 		Serial.print(",");
 	}
 	Serial.println();
-
 }
 
 void neuron::connectInput(neuron* inNode){
-
 	inNodes[inCount] = inNode;
 	inCount++;
 #if DEBUG
@@ -169,7 +164,6 @@ void neuron::connectInput(neuron* inNode){
 
 void neuron::setActivationFn(activFn userFn){
 	this->activation = userFn;
-	
 #if DEBUG
 	Serial.print(F("ActFN is "));
 	Serial.println((int)userFn);
